@@ -133,12 +133,12 @@ export default function Footer() {
           <span className="order-3">
             Website by{' '}
             <a
-              href="https://adamloomis.online"
+              href="https://adamloomismarketing.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-cream-dim transition-colors hover:text-brick-light"
             >
-              AdamLoomis.online
+              Adam Loomis Marketing
             </a>
           </span>
         </div>

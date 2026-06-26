@@ -4,29 +4,29 @@ import { Cookie, X } from 'lucide-react'
 
 // Playful, on-brand cookie notice. Non-blocking bottom card (not a modal). Starts
 // closed so SSR/prerender output matches the first client render (no hydration
-// mismatch), then opens shortly after mount unless already acknowledged. The
-// site only uses basic functional cookies, so a single acknowledge is enough.
-const KEY = 'ft-cookie-ack'
+// mismatch), then opens shortly after mount unless already acknowledged.
+const KEY = 'cookie-consent'
 
 export default function CookieNotice() {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
-    let acked = false
+    let answered = false
     try {
-      acked = localStorage.getItem(KEY) === '1'
+      const val = localStorage.getItem(KEY)
+      answered = val === 'accepted' || val === 'declined'
     } catch {
       /* storage unavailable */
     }
-    if (acked) return
+    if (answered) return
     const t = setTimeout(() => setOpen(true), 700)
     return () => clearTimeout(t)
   }, [])
 
-  const accept = () => {
+  const respond = (choice: 'accepted' | 'declined') => {
     setOpen(false)
     try {
-      localStorage.setItem(KEY, '1')
+      localStorage.setItem(KEY, choice)
     } catch {
       /* ignore */
     }
@@ -37,7 +37,7 @@ export default function CookieNotice() {
   return (
     <div
       role="region"
-      aria-label="Cookie notice"
+      aria-label="Cookie consent"
       className="fixed inset-x-3 bottom-3 z-[70] sm:left-5 sm:right-auto sm:max-w-md"
     >
       <div className="rise relative overflow-hidden rounded-xl border border-line bg-card/95 p-5 shadow-[0_30px_70px_-25px_rgba(0,0,0,0.85)] backdrop-blur-md">
@@ -45,8 +45,8 @@ export default function CookieNotice() {
         <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-marigold" />
         <button
           type="button"
-          onClick={accept}
-          aria-label="Dismiss cookie notice"
+          onClick={() => respond('declined')}
+          aria-label="Decline cookies and close"
           className="absolute right-3 top-3 text-ink-faint transition-colors hover:text-ink"
         >
           <X size={18} />
@@ -61,28 +61,27 @@ export default function CookieNotice() {
               Cookies? We&rsquo;re more of a taco place.
             </h2>
             <p className="mt-2 text-body-md text-ink-soft">
-              This site uses a few cookies — the digital kind, not the edible kind — to keep things
-              running smooth. We never sell your info.{' '}
+              This site uses cookies to keep things running smoothly. We never sell your data.{' '}
               <Link href="/privacy" className="text-marigold underline underline-offset-2 hover:text-marigold-light">
-                The fine print
+                Privacy Policy
               </Link>
               .
             </p>
-            <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
+            <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-3">
               <button
                 type="button"
-                onClick={accept}
+                onClick={() => respond('accepted')}
                 className="inline-flex items-center rounded bg-brick px-6 py-3 font-body text-[12px] font-semibold uppercase tracking-[0.16em] text-on-brick transition-colors hover:bg-brick-dark"
               >
                 Dig In
               </button>
-              <Link
-                href="/menu"
-                onClick={accept}
-                className="font-body text-[12px] font-semibold uppercase tracking-[0.16em] text-bluetip-light transition-colors hover:text-bluetip"
+              <button
+                type="button"
+                onClick={() => respond('declined')}
+                className="font-body text-[12px] font-semibold uppercase tracking-[0.16em] text-ink-faint transition-colors hover:text-ink"
               >
-                See the real menu →
-              </Link>
+                No Thanks
+              </button>
             </div>
           </div>
         </div>

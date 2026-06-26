@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Funky Truckeria | Award-Winning Tacos in Norton, OH</title>
+    <meta
+      name="description"
+      content="The Funky Truckeria, an award-winning artisanal taco shop & food truck in Norton, OH. Korean BBQ, Thai, Huli Huli, Baja fish tacos & more, built fresh to order. Open Mon–Sat. Call (330) 208-0560." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#120d0b" />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet" />
+    <!--SEO_HEAD-->
+    <!-- Gate scroll-reveal styles on JS so no-JS / failed-bundle visitors see all content. -->
+    <script>
+      document.documentElement.classList.add('reveal-ready')
+    </script>
+  </head>
+  <body>
+    <!-- Hidden static form so Netlify detects it (and its fields) at build time.
+         The live React form (src/pages/Contact.tsx) posts to this name. -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+      <input type="text" name="subject" />
+      <textarea name="message"></textarea>
+    </form>
+    <!-- Food truck / catering inquiry form (src/pages/FoodTrucks.tsx). -->
+    <form name="foodtruck" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+      <input type="text" name="event-type" />
+      <input type="date" name="event-date" />
+      <input type="text" name="location" />
+      <input type="text" name="guests" />
+      <textarea name="message"></textarea>
+    </form>
+    <!-- Job application form (src/pages/Careers.tsx); multipart so the resume file uploads. -->
+    <form name="application" netlify netlify-honeypot="bot-field" enctype="multipart/form-data" hidden>
+      <input type="text" name="name" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+      <input type="text" name="position" />
+      <input type="text" name="availability" />
+      <textarea name="experience"></textarea>
+      <input type="file" name="resume" />
+    </form>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

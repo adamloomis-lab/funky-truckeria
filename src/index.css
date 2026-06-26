@@ -1,0 +1,363 @@
+@import 'tailwindcss';
+
+@theme {
+  /* Bowlby One SC: heavy, chunky, retro small-caps display — vintage taco-truck
+     sign energy. DM Sans: geometric body sans with rounded terminals. */
+  --font-display: 'Bowlby One SC', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+
+  /* Warm near-black base — the matte-black menu board the brand lives on. */
+  --color-paper: #1a1411;
+  --color-paper-2: #120d0b;
+  --color-paper-3: #251a14;
+  --color-card: #221813;
+
+  /* Cream type on the dark base */
+  --color-ink: #f8ecdd;
+  --color-ink-soft: #cdbca8;
+  --color-ink-faint: #9a8978;
+
+  /* Blackened base for hero / footer dark sections */
+  --color-steel: #120d0b;
+  --color-steel-2: #1a1310;
+  --color-steel-3: #261b15;
+  --color-steel-4: #33251c;
+
+  /* Chili — primary accent / CTA (the hot red off the sugar-skull menu). The
+     `brick` token name is kept site-wide; only the value changed. */
+  --color-brick: #ef3f28;
+  --color-brick-dark: #c0271a;
+  --color-brick-light: #ff6a4d;
+  --color-on-brick: #fff5ee;
+
+  /* Teal accent (brand marketing palette). `bluetip` token name kept. */
+  --color-bluetip: #3fb8af;
+  --color-bluetip-light: #6fd3cb;
+
+  /* Brand marketing palette — rotated across sections, menu chips, dividers,
+     eyebrows & icons to add color/texture as you scroll. */
+  --color-marigold: #ffc72c; /* yellow */
+  --color-marigold-light: #ffd75e;
+  --color-orange: #e8732c;
+  --color-orange-light: #f2914a;
+  --color-magenta: #e63987;
+  --color-magenta-light: #f266a6;
+  --color-purple: #5b2a6b;
+  --color-purple-light: #9259ac;
+  --color-purple-deep: #4a2c5a;
+  --color-lime: #9ace3c; /* occasional pop */
+  --color-lime-light: #b6e561;
+
+  /* Cream type on dark surfaces (brand cream #F4E7C9) */
+  --color-cream: #f4e7c9;
+  --color-cream-dim: #cdbf9f;
+  --color-cream-faint: #9a8d72;
+
+  /* Lines / outlines */
+  --color-line: #3a3026;
+  --color-line-dark: #2c241c;
+
+  --color-error: #c0492f;
+
+  /* Type scale, tuned down for the heavy Bowlby One SC display face. */
+  --text-display-xl: 62px;
+  --text-display-xl--line-height: 1.0;
+  --text-display-xl--letter-spacing: 0;
+  --text-display-xl--font-weight: 400;
+  --text-display-lg: 48px;
+  --text-display-lg--line-height: 1.02;
+  --text-display-lg--font-weight: 400;
+  --text-display-lg-mobile: 34px;
+  --text-display-lg-mobile--line-height: 1.06;
+  --text-display-lg-mobile--font-weight: 400;
+  /* Mobile-friendly section-heading size; pages bump to ~36px at md+. */
+  --text-headline-lg: 30px;
+  --text-headline-lg--line-height: 1.12;
+  --text-headline-lg--font-weight: 400;
+  --text-headline-md: 27px;
+  --text-headline-md--line-height: 1.16;
+  --text-headline-md--font-weight: 400;
+  --text-headline-sm: 20px;
+  --text-headline-sm--line-height: 1.28;
+  --text-headline-sm--font-weight: 400;
+  --text-body-lg: 20px;
+  --text-body-lg--line-height: 1.72;
+  --text-body-md: 17px;
+  --text-body-md--line-height: 1.74;
+  --text-label-lg: 13px;
+  --text-label-lg--line-height: 1.2;
+  --text-label-lg--letter-spacing: 0.24em;
+  --text-label-lg--font-weight: 600;
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 1.2;
+  --text-label-sm--letter-spacing: 0.26em;
+  --text-label-sm--font-weight: 600;
+
+  --spacing-section-gap: 104px;
+  --spacing-margin-mobile: 20px;
+  --spacing-margin-desktop: 56px;
+
+  --radius-DEFAULT: 3px;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 400;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    /* Bowlby One SC is small-caps by design — let the typeface render its own
+       caps rather than forcing text-transform. */
+    text-transform: none;
+    letter-spacing: 0;
+    line-height: 1.04;
+  }
+  a, button:not(:disabled), [role='button'] {
+    cursor: pointer;
+  }
+  ::selection {
+    background-color: var(--color-brick);
+    color: var(--color-on-brick);
+  }
+  /* WCAG 2.4.7 keyboard focus */
+  *:focus-visible {
+    outline: 2px solid var(--color-brick);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 80rem;
+    padding-inline: var(--spacing-margin-mobile);
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: var(--spacing-margin-desktop);
+    }
+  }
+
+  /* Eyebrow, uppercase tracked brick caption above a heading */
+  .eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--text-label-lg);
+    line-height: var(--text-label-lg--line-height);
+    letter-spacing: var(--text-label-lg--letter-spacing);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--color-brick);
+  }
+
+  /* Thin brick rule under section headings, "draws" in on reveal */
+  .brick-rule {
+    display: inline-block;
+    width: 72px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-brick), transparent);
+  }
+
+  /* Brick check-mark / bullet for feature lists */
+  .check-list li {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+  .check-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 9999px;
+    background-color: var(--color-brick);
+    box-shadow: 0 0 0 3px rgba(176, 58, 40, 0.18);
+  }
+
+  /* Blackened-steel panel, subtle top sheen + vertical depth for dark sections.
+     background-color is set separately (not via the `background` shorthand) so a
+     companion `.brick-texture` can override background-image without wiping the
+     dark fill. */
+  .steel-panel {
+    background-color: var(--color-steel);
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.045), transparent 20%),
+      linear-gradient(180deg, var(--color-steel-2), var(--color-steel));
+  }
+
+  /* Riveted hairline divider for dark sections */
+  .steel-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-line-dark) 12%,
+      var(--color-line-dark) 88%,
+      transparent
+    );
+  }
+
+  /* Legal / policy page prose */
+  .legal-prose h2 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 22px;
+    color: var(--color-ink);
+    margin-top: 2.25rem;
+    margin-bottom: 0.5rem;
+  }
+  .legal-prose h2:first-child {
+    margin-top: 0;
+  }
+  .legal-prose a {
+    color: var(--color-brick);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .legal-prose ul {
+    list-style: disc;
+    padding-left: 1.4rem;
+  }
+  .legal-prose ul li {
+    margin-top: 0.4rem;
+  }
+  .legal-prose strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+}
+
+/* Brick texture: faint diagonal weave so steel sections read like masonry,
+   never loud. Pure CSS, no image weight. */
+.brick-texture {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.018) 0 1px,
+      transparent 1px 78px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.018) 0 1px,
+      transparent 1px 30px
+    );
+}
+
+/* Soft vignette so dark hero text/logo stays legible over imagery */
+.smoke-overlay {
+  background: radial-gradient(
+    120% 100% at 50% 0%,
+    rgba(21, 17, 14, 0.28) 0%,
+    rgba(21, 17, 14, 0.74) 62%,
+    rgba(21, 17, 14, 0.96) 100%
+  );
+}
+
+/* Slow Ken Burns drift on dark hero / section media */
+.kenburns {
+  animation: wmg-kenburns 30s ease-in-out infinite alternate;
+  transform-origin: center;
+  will-change: transform;
+}
+@keyframes wmg-kenburns {
+  from { transform: scale(1.05) translate3d(0, 0, 0); }
+  to { transform: scale(1.13) translate3d(0, -1.5%, 0); }
+}
+
+/* Parallax: useParallax writes --p (0..1 viewport progress); element drifts. */
+.parallax {
+  transform: translate3d(0, calc((var(--p, 0.5) - 0.5) * 2 * var(--p-amt, 28px)), 0);
+  will-change: transform;
+}
+
+/* ---- Funky marquee ticker --------------------------------------------- */
+/* Two identical groups sit side-by-side in the track; translating the track
+   by -50% scrolls exactly one group width for a seamless infinite loop.
+   Pure CSS (SSR-safe) and pauses on hover. */
+.marquee {
+  overflow: hidden;
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: funky-marquee var(--marquee-duration, 38s) linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+.marquee__group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+@keyframes funky-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* ---- Scroll-reveal + entrance motion ---------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .rise { animation: wmg-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  .rise-1 { animation-delay: 0.08s; }
+  .rise-2 { animation-delay: 0.2s; }
+  .rise-3 { animation-delay: 0.32s; }
+  .rise-4 { animation-delay: 0.44s; }
+  .rise-5 { animation-delay: 0.56s; }
+  @keyframes wmg-rise {
+    from { opacity: 0; transform: translateY(22px); filter: blur(3px); }
+    to { opacity: 1; transform: none; filter: blur(0); }
+  }
+
+  .reveal-ready .reveal,
+  .reveal-ready .reveal-group > * {
+    opacity: 0;
+    transform: translateY(26px) scale(0.985);
+    filter: blur(3px);
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
+  }
+  .reveal-ready .reveal.is-visible,
+  .reveal-ready .reveal-group.is-visible > * {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(2) { transition-delay: 0.1s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(3) { transition-delay: 0.2s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(4) { transition-delay: 0.3s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(5) { transition-delay: 0.4s; }
+  .reveal-ready .reveal-group.is-visible > *:nth-child(6) { transition-delay: 0.5s; }
+
+  .brick-rule {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  }
+  .reveal-ready .reveal.is-visible .brick-rule,
+  .reveal-ready .brick-rule.is-visible {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kenburns, .parallax { animation: none; transform: none; }
+}

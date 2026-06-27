@@ -1,10 +1,40 @@
 import { useState, useRef } from 'react'
 import type { FormEvent } from 'react'
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Check, Car, ChevronDown, ShoppingBag } from 'lucide-react'
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Facebook,
+  Instagram,
+  Car,
+  ShoppingBag,
+  MessageCircle,
+  Truck,
+  PartyPopper,
+  Briefcase,
+} from 'lucide-react'
 import { company } from '../data/site'
 import { faqs } from '../lib/seo'
 import HoursList from '../components/HoursList'
 import FactoryBackdrop from '../components/FactoryBackdrop'
+import {
+  FloatField,
+  IconCardSelect,
+  CrossLinkCard,
+  SheenSubmit,
+  SuccessCheck,
+  type IconCardOption,
+} from '../components/FluidField'
+
+// Subject values are identical to the previous <select> options so the Netlify
+// "contact" form submissions read exactly the same.
+const subjectOptions: IconCardOption[] = [
+  { value: 'General Question', label: 'General Question', icon: MessageCircle },
+  { value: 'Food Truck / Catering', label: 'Food Truck / Catering', icon: Truck },
+  { value: 'Private Event', label: 'Private Event', icon: PartyPopper },
+  { value: 'Feedback', label: 'Feedback', icon: MessageCircle },
+]
 
 const encode = (data: Record<string, string>) =>
   Object.keys(data)
@@ -15,11 +45,17 @@ export default function Contact() {
   const [sent, setSent] = useState(false)
   const [error, setError] = useState(false)
   const [firstName, setFirstName] = useState('')
+  const [subject, setSubject] = useState('')
+  const [subjectInvalid, setSubjectInvalid] = useState(false)
   const formCardRef = useRef<HTMLDivElement>(null)
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(false)
+    if (!subject) {
+      setSubjectInvalid(true)
+      return
+    }
     const form = e.currentTarget
     const data = Object.fromEntries(new FormData(form) as never) as Record<string, string>
     try {
@@ -32,6 +68,7 @@ export default function Contact() {
       setFirstName((data.name || '').trim().split(/\s+/)[0] || '')
       setSent(true)
       form.reset()
+      setSubject('')
       requestAnimationFrame(() =>
         formCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }),
       )
@@ -39,9 +76,6 @@ export default function Contact() {
       setError(true)
     }
   }
-
-  const field =
-    'w-full rounded border border-line bg-card px-4 py-3.5 text-body-md text-ink placeholder:text-ink-faint focus:border-brick focus-visible:outline-none focus:ring-1 focus:ring-brick/40'
 
   return (
     <>
@@ -146,15 +180,17 @@ export default function Contact() {
 
               {sent ? (
                 <div className="mt-8 flex flex-col items-center gap-4 rounded-lg border border-brick/40 bg-brick/5 px-6 py-12 text-center">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brick text-on-brick">
-                    <Check size={28} />
-                  </span>
+                  <SuccessCheck />
                   <p className="font-display text-headline-md text-ink">
-                    Thanks{firstName ? `, ${firstName}` : ''}!
+                    Thank You{firstName ? `, ${firstName}` : ''}!
                   </p>
                   <p className="text-body-md text-ink-soft">
                     Your message is on its way to The Funky Truckeria. We'll get back to you as soon as we
-                    can. For a faster reply, give us a call at {company.phone}.
+                    can. For a faster reply, give us a call at{' '}
+                    <a href={company.phoneHref} className="font-semibold text-brick-light hover:underline">
+                      {company.phone}
+                    </a>
+                    .
                   </p>
                 </div>
               ) : (
@@ -173,47 +209,30 @@ export default function Contact() {
                     </label>
                   </p>
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <div>
-                      <label htmlFor="contact-name" className="sr-only">Name</label>
-                      <input id="contact-name" className={field} type="text" name="name" placeholder="Name" required />
-                    </div>
-                    <div>
-                      <label htmlFor="contact-phone" className="sr-only">Phone</label>
-                      <input id="contact-phone" className={field} type="tel" name="phone" placeholder="Phone" />
-                    </div>
+                    <FloatField idPrefix="contact" name="name" label="Name" required autoComplete="name" />
+                    <FloatField idPrefix="contact" name="phone" label="Phone" type="tel" autoComplete="tel" />
                   </div>
-                  <label htmlFor="contact-email" className="sr-only">Email</label>
-                  <input id="contact-email" className={field} type="email" name="email" placeholder="Email" required />
-                  <div className="relative">
-                    <label htmlFor="contact-subject" className="sr-only">Subject</label>
-                    <select
-                      id="contact-subject"
-                      name="subject"
-                      defaultValue=""
-                      required
-                      className={`${field} appearance-none pr-11`}
-                    >
-                      <option value="" disabled>
-                        What can we help with?
-                      </option>
-                      <option>General Question</option>
-                      <option>Food Truck / Catering</option>
-                      <option>Private Event</option>
-                      <option>Careers / Employment</option>
-                      <option>Feedback</option>
-                    </select>
-                    <ChevronDown
-                      size={18}
-                      className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink-faint"
-                    />
-                  </div>
-                  <label htmlFor="contact-message" className="sr-only">Message</label>
-                  <textarea
-                    id="contact-message"
-                    className={field}
+                  <FloatField idPrefix="contact" name="email" label="Email" type="email" required autoComplete="email" />
+                  <IconCardSelect
+                    name="subject"
+                    legend="What can we help with?"
+                    options={subjectOptions}
+                    value={subject}
+                    onChange={(v) => {
+                      setSubject(v)
+                      setSubjectInvalid(false)
+                    }}
+                    required
+                    invalid={subjectInvalid}
+                  >
+                    <CrossLinkCard href="/careers" label="Join our team" icon={Briefcase} />
+                  </IconCardSelect>
+                  <FloatField
+                    idPrefix="contact"
                     name="message"
+                    label="Tell us about your event, question or feedback"
+                    textarea
                     rows={5}
-                    placeholder="Tell us about your event, question or feedback…"
                     required
                   />
                   {error && (
@@ -222,12 +241,7 @@ export default function Contact() {
                       {company.phone}.
                     </p>
                   )}
-                  <button
-                    type="submit"
-                    className="w-full rounded bg-brick px-8 py-4 font-body text-[13px] font-semibold uppercase tracking-[0.16em] text-on-brick transition-colors hover:bg-brick-dark"
-                  >
-                    Send Message
-                  </button>
+                  <SheenSubmit>Send Message</SheenSubmit>
                 </form>
               )}
             </div>

@@ -1,10 +1,27 @@
 import { useState, useRef } from 'react'
 import type { FormEvent } from 'react'
-import { Phone, Heart, Briefcase, PartyPopper, Music, ChevronDown, Check } from 'lucide-react'
+import { Phone, Heart, Briefcase, PartyPopper, Music, ChevronDown, Check, MoreHorizontal } from 'lucide-react'
 import Button from '../components/Button'
 import SectionHeading from '../components/SectionHeading'
 import FactoryBackdrop from '../components/FactoryBackdrop'
 import { company, featurePillars } from '../data/site'
+import {
+  FloatField,
+  IconCardSelect,
+  SheenSubmit,
+  SuccessCheck,
+  type IconCardOption,
+} from '../components/FluidField'
+
+// Values identical to the previous <select> so the Netlify "foodtruck" form
+// submissions read exactly the same.
+const eventTypeOptions: IconCardOption[] = [
+  { value: 'Wedding', label: 'Wedding', icon: Heart },
+  { value: 'Corporate Event', label: 'Corporate Event', icon: Briefcase },
+  { value: 'Festival / Public Event', label: 'Festival / Public Event', icon: Music },
+  { value: 'Private Party', label: 'Private Party', icon: PartyPopper },
+  { value: 'Other', label: 'Other', icon: MoreHorizontal },
+]
 
 const services = [
   {
@@ -45,11 +62,17 @@ export default function FoodTrucks() {
   const [sent, setSent] = useState(false)
   const [error, setError] = useState(false)
   const [firstName, setFirstName] = useState('')
+  const [eventType, setEventType] = useState('')
+  const [eventTypeInvalid, setEventTypeInvalid] = useState(false)
   const formCardRef = useRef<HTMLDivElement>(null)
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(false)
+    if (!eventType) {
+      setEventTypeInvalid(true)
+      return
+    }
     const form = e.currentTarget
     const data = Object.fromEntries(new FormData(form) as never) as Record<string, string>
     try {
@@ -62,6 +85,7 @@ export default function FoodTrucks() {
       setFirstName((data.name || '').trim().split(/\s+/)[0] || '')
       setSent(true)
       form.reset()
+      setEventType('')
       requestAnimationFrame(() =>
         formCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }),
       )
@@ -193,15 +217,17 @@ export default function FoodTrucks() {
             <div ref={formCardRef} className="scroll-mt-28 rounded-lg border border-line bg-card p-8 md:p-10">
               {sent ? (
                 <div className="flex flex-col items-center gap-4 rounded-lg border border-brick/40 bg-brick/5 px-6 py-14 text-center">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brick text-on-brick">
-                    <Check size={28} />
-                  </span>
+                  <SuccessCheck />
                   <p className="font-display text-headline-md text-ink">
-                    Thanks{firstName ? `, ${firstName}` : ''}!
+                    Thank You{firstName ? `, ${firstName}` : ''}!
                   </p>
                   <p className="text-body-md text-ink-soft">
                     Your event request is on its way to The Funky Truckeria. We'll get back to you with
-                    availability and a quote. For a faster reply, call {company.phone}.
+                    availability and a quote. For a faster reply, call{' '}
+                    <a href={company.phoneHref} className="font-semibold text-brick-light hover:underline">
+                      {company.phone}
+                    </a>
+                    .
                   </p>
                 </div>
               ) : (
@@ -220,47 +246,64 @@ export default function FoodTrucks() {
                     </label>
                   </p>
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <input className={field} type="text" name="name" placeholder="Name" required />
-                    <input className={field} type="tel" name="phone" placeholder="Phone" required />
+                    <FloatField idPrefix="ft" name="name" label="Name" required autoComplete="name" />
+                    <FloatField idPrefix="ft" name="phone" label="Phone" type="tel" required autoComplete="tel" />
                   </div>
-                  <input className={field} type="email" name="email" placeholder="Email" required />
+                  <FloatField idPrefix="ft" name="email" label="Email" type="email" required autoComplete="email" />
+                  <IconCardSelect
+                    name="event-type"
+                    legend="Event type"
+                    options={eventTypeOptions}
+                    value={eventType}
+                    onChange={(v) => {
+                      setEventType(v)
+                      setEventTypeInvalid(false)
+                    }}
+                    required
+                    invalid={eventTypeInvalid}
+                  />
                   <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="relative">
-                      <select name="event-type" defaultValue="" required className={`${field} appearance-none pr-11`}>
-                        <option value="" disabled>
-                          Event type
-                        </option>
-                        <option>Wedding</option>
-                        <option>Corporate Event</option>
-                        <option>Festival / Public Event</option>
-                        <option>Private Party</option>
-                        <option>Other</option>
-                      </select>
-                      <ChevronDown size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink-faint" />
+                    <div>
+                      <label
+                        htmlFor="ft-event-date"
+                        className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint"
+                      >
+                        Event date
+                      </label>
+                      <input id="ft-event-date" className={field} type="date" name="event-date" />
                     </div>
-                    <input className={field} type="date" name="event-date" aria-label="Event date" />
+                    <FloatField idPrefix="ft" name="location" label="Event location / city" />
                   </div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <input className={field} type="text" name="location" placeholder="Event location / city" />
-                    <div className="relative">
-                      <select name="guests" defaultValue="" className={`${field} appearance-none pr-11`}>
-                        <option value="" disabled>
-                          Estimated guests
-                        </option>
-                        <option>Under 25</option>
-                        <option>25-50</option>
-                        <option>50-100</option>
-                        <option>100-200</option>
-                        <option>200+</option>
-                      </select>
-                      <ChevronDown size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink-faint" />
-                    </div>
+                  <div className="relative">
+                    <label
+                      htmlFor="ft-guests"
+                      className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint"
+                    >
+                      Estimated guests
+                    </label>
+                    <select
+                      id="ft-guests"
+                      name="guests"
+                      defaultValue=""
+                      className={`${field} appearance-none pr-11`}
+                    >
+                      <option value="" disabled>
+                        Pick a range
+                      </option>
+                      <option>Under 25</option>
+                      <option>25-50</option>
+                      <option>50-100</option>
+                      <option>100-200</option>
+                      <option>200+</option>
+                    </select>
+                    <ChevronDown size={18} className="pointer-events-none absolute right-4 top-[2.85rem] text-ink-faint" />
                   </div>
-                  <textarea
-                    className={field}
+                  <FloatField
+                    idPrefix="ft"
                     name="message"
+                    label="Tell us about your event: what you're celebrating, timing, anything special"
+                    textarea
                     rows={4}
-                    placeholder="Tell us about your event: what you're celebrating, timing, anything special…"
                     required
                   />
                   {error && (
@@ -268,12 +311,7 @@ export default function FoodTrucks() {
                       Oops, there was an error sending your request. Please try again, or call {company.phone}.
                     </p>
                   )}
-                  <button
-                    type="submit"
-                    className="w-full rounded bg-brick px-8 py-4 font-body text-[13px] font-semibold uppercase tracking-[0.16em] text-on-brick transition-colors hover:bg-brick-dark"
-                  >
-                    Request a Quote
-                  </button>
+                  <SheenSubmit>Request a Quote</SheenSubmit>
                 </form>
               )}
             </div>

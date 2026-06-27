@@ -1,24 +1,68 @@
 import { useState, useRef } from 'react'
 import type { FormEvent } from 'react'
-import { Check, ChevronDown, Clock, HeartHandshake, Sparkles } from 'lucide-react'
+import {
+  Clock,
+  HeartHandshake,
+  HandCoins,
+  Utensils,
+  Flame,
+  ChefHat,
+  Droplets,
+  ConciergeBell,
+  MoreHorizontal,
+  Sun,
+  Sunrise,
+  CalendarRange,
+} from 'lucide-react'
 import { company } from '../data/site'
 import FactoryBackdrop from '../components/FactoryBackdrop'
+import {
+  FloatField,
+  IconCardSelect,
+  SheenSubmit,
+  SuccessCheck,
+  type IconCardOption,
+} from '../components/FluidField'
 
 const perks = [
   { icon: HeartHandshake, title: 'Tight-Knit Crew', blurb: 'A small, scrappy team that has each other’s backs, shift after shift.' },
   { icon: Clock, title: 'Sundays Off', blurb: 'We’re open Monday through Saturday and closed Sundays, so you get your weekends back.' },
-  { icon: Sparkles, title: 'Honest Pay & Tips', blurb: 'Competitive pay, a busy lunch and dinner rush, and a loyal local following that tips well.' },
+  { icon: HandCoins, title: 'Honest Pay & Tips', blurb: 'Competitive pay, a busy lunch and dinner rush, and a loyal local following that tips well.' },
+]
+
+// Values identical to the previous selects so the Netlify "application" form
+// submissions read exactly the same.
+const positionOptions: IconCardOption[] = [
+  { value: 'Server / Waitstaff', label: 'Server / Waitstaff', icon: Utensils },
+  { value: 'Line Cook', label: 'Line Cook', icon: Flame },
+  { value: 'Prep Cook', label: 'Prep Cook', icon: ChefHat },
+  { value: 'Dishwasher', label: 'Dishwasher', icon: Droplets },
+  { value: 'Host / Counter', label: 'Host / Counter', icon: ConciergeBell },
+  { value: 'Anything available', label: 'Anything available', icon: MoreHorizontal },
+]
+
+const availabilityOptions: IconCardOption[] = [
+  { value: 'Full-time', label: 'Full-time', icon: Sun },
+  { value: 'Part-time', label: 'Part-time', icon: Sunrise },
+  { value: 'Either', label: 'Either', icon: CalendarRange },
 ]
 
 export default function Careers() {
   const [sent, setSent] = useState(false)
   const [error, setError] = useState(false)
   const [firstName, setFirstName] = useState('')
+  const [position, setPosition] = useState('')
+  const [availability, setAvailability] = useState('')
+  const [picksInvalid, setPicksInvalid] = useState(false)
   const formCardRef = useRef<HTMLDivElement>(null)
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(false)
+    if (!position || !availability) {
+      setPicksInvalid(true)
+      return
+    }
     const form = e.currentTarget
     const fd = new FormData(form)
     const nameVal = String(fd.get('name') || '')
@@ -29,6 +73,8 @@ export default function Careers() {
       setFirstName(nameVal.trim().split(/\s+/)[0] || '')
       setSent(true)
       form.reset()
+      setPosition('')
+      setAvailability('')
       requestAnimationFrame(() =>
         formCardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }),
       )
@@ -36,9 +82,6 @@ export default function Careers() {
       setError(true)
     }
   }
-
-  const field =
-    'w-full rounded border border-line bg-card px-4 py-3.5 text-body-md text-ink placeholder:text-ink-faint focus:border-brick focus-visible:outline-none focus:ring-1 focus:ring-brick/40'
 
   return (
     <>
@@ -84,16 +127,18 @@ export default function Careers() {
 
             {sent ? (
               <div className="mt-8 flex flex-col items-center gap-4 rounded-lg border border-brick/40 bg-brick/5 px-6 py-12 text-center">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brick text-on-brick">
-                  <Check size={28} />
-                </span>
+                <SuccessCheck />
                 <p className="font-display text-headline-md text-ink">
-                  Thanks{firstName ? `, ${firstName}` : ''}!
+                  Thank You{firstName ? `, ${firstName}` : ''}!
                 </p>
                 <p className="text-body-md text-ink-soft">
                   {firstName ? `${firstName}, we` : 'We'}&rsquo;ve got your application and we&rsquo;ll
                   review it soon. If it looks like a fit, we&rsquo;ll reach out to set up a time to chat.
-                  Questions? Call us at {company.phone}.
+                  Questions? Call us at{' '}
+                  <a href={company.phoneHref} className="font-semibold text-brick-light hover:underline">
+                    {company.phone}
+                  </a>
+                  .
                 </p>
               </div>
             ) : (
@@ -113,59 +158,42 @@ export default function Careers() {
                   </label>
                 </p>
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <div>
-                    <label htmlFor="app-name" className="sr-only">Full name</label>
-                    <input id="app-name" className={field} type="text" name="name" placeholder="Full name" required />
-                  </div>
-                  <div>
-                    <label htmlFor="app-phone" className="sr-only">Phone</label>
-                    <input id="app-phone" className={field} type="tel" name="phone" placeholder="Phone" required />
-                  </div>
+                  <FloatField idPrefix="app" name="name" label="Full name" required autoComplete="name" />
+                  <FloatField idPrefix="app" name="phone" label="Phone" type="tel" required autoComplete="tel" />
                 </div>
-                <label htmlFor="app-email" className="sr-only">Email</label>
-                <input id="app-email" className={field} type="email" name="email" placeholder="Email" required />
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="relative">
-                    <label htmlFor="app-position" className="sr-only">Position of interest</label>
-                    <select id="app-position" name="position" defaultValue="" required className={`${field} appearance-none pr-11`}>
-                      <option value="" disabled>
-                        Position of interest
-                      </option>
-                      <option>Server / Waitstaff</option>
-                      <option>Line Cook</option>
-                      <option>Prep Cook</option>
-                      <option>Dishwasher</option>
-                      <option>Host / Counter</option>
-                      <option>Anything available</option>
-                    </select>
-                    <ChevronDown
-                      size={18}
-                      className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink-faint"
-                    />
-                  </div>
-                  <div className="relative">
-                    <label htmlFor="app-availability" className="sr-only">Availability</label>
-                    <select id="app-availability" name="availability" defaultValue="" required className={`${field} appearance-none pr-11`}>
-                      <option value="" disabled>
-                        Availability
-                      </option>
-                      <option>Full-time</option>
-                      <option>Part-time</option>
-                      <option>Either</option>
-                    </select>
-                    <ChevronDown
-                      size={18}
-                      className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink-faint"
-                    />
-                  </div>
-                </div>
-                <label htmlFor="app-experience" className="sr-only">Experience and availability</label>
-                <textarea
-                  id="app-experience"
-                  className={field}
+                <FloatField idPrefix="app" name="email" label="Email" type="email" required autoComplete="email" />
+                <IconCardSelect
+                  name="position"
+                  legend="Position of interest"
+                  options={positionOptions}
+                  value={position}
+                  onChange={(v) => {
+                    setPosition(v)
+                    setPicksInvalid(false)
+                  }}
+                  required
+                  invalid={picksInvalid && !position}
+                  cols={3}
+                />
+                <IconCardSelect
+                  name="availability"
+                  legend="Availability"
+                  options={availabilityOptions}
+                  value={availability}
+                  onChange={(v) => {
+                    setAvailability(v)
+                    setPicksInvalid(false)
+                  }}
+                  required
+                  invalid={picksInvalid && !availability}
+                  cols={3}
+                />
+                <FloatField
+                  idPrefix="app"
                   name="experience"
+                  label="Tell us a little about your experience and when you can start"
+                  textarea
                   rows={4}
-                  placeholder="Tell us a little about your experience and when you can start"
                 />
                 <div>
                   <label className="mb-2 block text-[13px] uppercase tracking-[0.14em] text-ink-faint">
@@ -184,12 +212,7 @@ export default function Careers() {
                     {company.phone}.
                   </p>
                 )}
-                <button
-                  type="submit"
-                  className="w-full rounded bg-brick px-8 py-4 font-body text-[13px] font-semibold uppercase tracking-[0.16em] text-on-brick transition-colors hover:bg-brick-dark"
-                >
-                  Submit Application
-                </button>
+                <SheenSubmit>Submit Application</SheenSubmit>
               </form>
             )}
           </div>

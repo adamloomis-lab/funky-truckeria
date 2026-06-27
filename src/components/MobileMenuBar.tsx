@@ -3,9 +3,11 @@ import { Link, useLocation } from 'wouter'
 import { UtensilsCrossed, ShoppingBag, Phone } from 'lucide-react'
 import { company } from '../data/site'
 
-// Sticky bottom action bar on mobile only. Slides up once you've scrolled past
-// the hero, then tucks away near the footer so it never covers contact info.
-// Starts hidden so SSR/first client render match (no hydration mismatch).
+// Elevated floating action capsule on mobile only. A blurred near-black bar
+// that stands off the edge with a big shadow: a glassy secondary action and a
+// glowing chili-red PRIMARY (Order Online, the money action). Slides up once
+// you've scrolled past the hero, then tucks away near the footer so it never
+// covers contact info. Starts hidden so SSR/first client render match.
 export default function MobileMenuBar() {
   const [show, setShow] = useState(false)
   const [location] = useLocation()
@@ -28,26 +30,26 @@ export default function MobileMenuBar() {
 
   const onMenu = location === '/menu'
   const secondary =
-    'inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded border border-brick/60 px-3 py-3.5 font-body text-[12px] font-semibold uppercase tracking-[0.08em] text-cream'
+    'inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-cream/10 px-3 py-3.5 font-body text-[12px] font-semibold uppercase tracking-[0.08em] text-cream transition-all active:scale-95'
   const primary =
-    'inline-flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded bg-brick px-3 py-3.5 font-body text-[12px] font-semibold uppercase tracking-[0.08em] text-on-brick'
+    'group relative inline-flex flex-1 items-center justify-center gap-2 overflow-hidden rounded-xl bg-brick px-3 py-3.5 font-body text-[12px] font-semibold uppercase tracking-[0.08em] text-on-brick animate-glow-pulse transition-all active:scale-95'
 
   return (
     <div
       aria-hidden={!show}
-      className={`fixed inset-x-0 bottom-0 z-40 transition-transform duration-300 lg:hidden ${
-        show ? 'translate-y-0' : 'translate-y-full'
+      className={`fixed inset-x-0 bottom-0 z-40 px-3 transition-transform duration-300 lg:hidden ${
+        show ? 'translate-y-0' : 'translate-y-[150%]'
       }`}
-      style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+      style={{ paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom))' }}
     >
-      <div className="flex gap-2 border-t border-line bg-paper/95 px-3 py-3 backdrop-blur-md shadow-[0_-12px_30px_-12px_rgba(0,0,0,0.7)]">
+      <div className="flex gap-2 rounded-2xl border border-cream/10 bg-paper/85 p-2 shadow-[0_16px_44px_-8px_rgba(0,0,0,0.75)] backdrop-blur-xl">
         {onMenu ? (
-          <a href={company.phoneHref} className={secondary}>
-            <Phone size={16} /> Call
+          <a href={company.phoneHref} className={secondary} tabIndex={show ? 0 : -1}>
+            <Phone size={16} className="text-brick-light" /> Call
           </a>
         ) : (
           <Link href="/menu" className={secondary} tabIndex={show ? 0 : -1}>
-            <UtensilsCrossed size={16} /> See the Menu
+            <UtensilsCrossed size={16} className="text-brick-light" /> See the Menu
           </Link>
         )}
         <a
@@ -57,7 +59,13 @@ export default function MobileMenuBar() {
           className={primary}
           tabIndex={show ? 0 : -1}
         >
-          <ShoppingBag size={16} /> Order Online
+          <span
+            aria-hidden="true"
+            className="sheen-sweep pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-white/30 blur-md group-hover:[animation:funky-sheen_0.9s_ease]"
+          />
+          <span className="relative inline-flex items-center gap-2">
+            <ShoppingBag size={16} /> Order Online
+          </span>
         </a>
       </div>
     </div>

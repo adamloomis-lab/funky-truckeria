@@ -18,7 +18,7 @@ export default function About() {
           </h1>
           <p className="rise rise-3 mx-auto mt-6 max-w-2xl text-body-lg text-cream-dim">
             Two award-winning food-truck chefs, a sombrero-sporting skeleton, and a stubborn belief that a
-            taco can be the best thing you eat all week. Serving Norton since 2015 — that's The Funky
+            taco can be the best thing you eat all week. Serving Norton since 2015. That's The Funky
             Truckeria.
           </p>
         </div>
@@ -35,11 +35,11 @@ export default function About() {
             <span className="brick-rule mt-5 block w-[72px]" />
             <p className="mt-6 text-body-lg text-ink-soft">
               We cut our teeth on the Northeast Ohio festival circuit, slinging West Coast street tacos out
-              of two food trucks. Customers kept asking where they could find us between events — so we
+              of two food trucks. Customers kept asking where they could find us between events, so we
               planted roots in Norton Plaza, part of the {company.parentBrand} family.
             </p>
             <p className="mt-4 text-body-lg text-ink-soft">
-              The result is a hidden gem that's "small but very nice and neat — not a normal Norton spot."
+              The result is a hidden gem that's "small but very nice and neat, not a normal Norton spot."
               About six tables, a cozy patio, a spacious lot, and a menu that travels from Korea to the
               Caribbean to Baja and back. Every taco is built fresh when you order it. Worth the wait.
             </p>
@@ -63,7 +63,7 @@ export default function About() {
         <div className="container-x">
           <img
             src="/images/logo-color.webp"
-            alt="The Funky Truckeria — celebrating 10 years, est. 2015"
+            alt="The Funky Truckeria, celebrating 10 years, est. 2015"
             loading="lazy"
             className="reveal mx-auto mb-8 h-40 w-40 rounded-full ring-1 ring-line-dark md:h-48 md:w-48"
           />

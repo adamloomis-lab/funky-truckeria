@@ -15,7 +15,7 @@ const services = [
   {
     icon: Briefcase,
     title: 'Corporate Events',
-    blurb: 'Team lunches, client appreciation, grand openings — fresh, fast and a whole lot more fun than catering trays.',
+    blurb: 'Team lunches, client appreciation, grand openings. Fresh, fast and a whole lot more fun than catering trays.',
   },
   {
     icon: Music,
@@ -25,7 +25,7 @@ const services = [
   {
     icon: PartyPopper,
     title: 'Private Parties',
-    blurb: 'Birthdays, graduations, backyard blowouts — turn your celebration up a notch with build-your-own tacos.',
+    blurb: 'Birthdays, graduations, backyard blowouts. Turn your celebration up a notch with build-your-own tacos.',
   },
 ]
 
@@ -84,8 +84,8 @@ export default function FoodTrucks() {
             Bring the funk to your event.
           </h1>
           <p className="rise rise-3 mx-auto mt-6 max-w-2xl text-body-lg text-cream/85">
-            It started on wheels, and the trucks still roll. We'll bring award-winning street tacos — built
-            fresh on site — to weddings, corporate events, festivals and private parties all across
+            It started on wheels, and the trucks still roll. We'll bring award-winning street tacos (built
+            fresh on site) to weddings, corporate events, festivals and private parties all across
             Northeast Ohio.
           </p>
           <div className="rise rise-4 mt-9 flex flex-col justify-center gap-3 sm:flex-row">
@@ -184,7 +184,7 @@ export default function FoodTrucks() {
                 <Check size={20} className="mt-0.5 shrink-0 text-bluetip" /> Weddings, corporate, festivals & private parties
               </li>
               <li className="flex gap-3">
-                <Check size={20} className="mt-0.5 shrink-0 text-bluetip" /> Please book 1–2 weeks ahead when you can
+                <Check size={20} className="mt-0.5 shrink-0 text-bluetip" /> Please book 1-2 weeks ahead when you can
               </li>
             </ul>
           </div>
@@ -248,9 +248,9 @@ export default function FoodTrucks() {
                           Estimated guests
                         </option>
                         <option>Under 25</option>
-                        <option>25–50</option>
-                        <option>50–100</option>
-                        <option>100–200</option>
+                        <option>25-50</option>
+                        <option>50-100</option>
+                        <option>100-200</option>
                         <option>200+</option>
                       </select>
                       <ChevronDown size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink-faint" />
@@ -260,7 +260,7 @@ export default function FoodTrucks() {
                     className={field}
                     name="message"
                     rows={4}
-                    placeholder="Tell us about your event — what you're celebrating, timing, anything special…"
+                    placeholder="Tell us about your event: what you're celebrating, timing, anything special…"
                     required
                   />
                   {error && (

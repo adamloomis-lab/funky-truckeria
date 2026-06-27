@@ -135,7 +135,7 @@ export function menuSchema() {
 const FAQS = [
   {
     q: 'What are The Funky Truckeria’s hours?',
-    a: 'We’re open Monday through Thursday 11am–8pm, Friday and Saturday 11am–9pm, and closed Sunday.',
+    a: 'We’re open Monday through Thursday 11am-8pm, Friday and Saturday 11am-9pm, and closed Sunday.',
   },
   {
     q: 'Where is The Funky Truckeria located?',
@@ -143,7 +143,7 @@ const FAQS = [
   },
   {
     q: 'Do you do carry-out and online ordering?',
-    a: 'Yes — order online through our Heartland ordering page or the Heartland app, or call us at (330) 208-0560 for carry-out.',
+    a: 'Yes. Order online through our Heartland ordering page or the Heartland app, or call us at (330) 208-0560 for carry-out.',
   },
   {
     q: 'Do you cater events and book the food truck?',
@@ -151,7 +151,7 @@ const FAQS = [
   },
   {
     q: 'Do you have vegetarian options?',
-    a: 'Yes — our crispy fried zucchini and buffalo cauliflower tacos are vegetarian, along with guacamole, salsa and street-corn sides.',
+    a: 'Yes. Our crispy fried zucchini and buffalo cauliflower tacos are vegetarian, along with guacamole, salsa and street-corn sides.',
   },
 ]
 
@@ -205,9 +205,9 @@ export function getPageMeta(rawPath: string): PageMeta {
       }
     case '/menu':
       return {
-        title: 'Menu | The Funky Truckeria — Tacos, Burritos & More in Norton, OH',
+        title: 'Menu | The Funky Truckeria, Tacos, Burritos & More in Norton, OH',
         description:
-          'Funky tacos from $5 — Korean BBQ, Thai, Huli Huli, Baja fish, birria and more. Plus big 14" burritos, quesadillas, loaded nachos, chorizo funky balls and the salted turtle nacho sundae.',
+          'Funky tacos from $5: Korean BBQ, Thai, Huli Huli, Baja fish, birria and more. Plus big 14" burritos, quesadillas, loaded nachos, chorizo funky balls and the salted turtle nacho sundae.',
         canonical: pageUrl('/menu'),
         ogImage: abs('/images/og-menu.jpg'),
         jsonLd: [

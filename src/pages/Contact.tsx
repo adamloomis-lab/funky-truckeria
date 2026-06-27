@@ -54,7 +54,7 @@ export default function Contact() {
             Visit &amp; Contact
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-body-lg text-cream-dim">
-            Stop in for tacos, order online for pickup, book the food truck, or just send us a note — we'll
+            Stop in for tacos, order online for pickup, book the food truck, or just send us a note. We'll
             get right back to you.
           </p>
         </div>

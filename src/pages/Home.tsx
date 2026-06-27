@@ -20,8 +20,8 @@ const pillarIcons = [Globe, Flame, Award]
 
 // Scrolling ticker phrases — awards, the Taco Tuesday special, and flavors.
 const tickerItems = [
-  'Voted Best Taco — Cleveland.com',
-  "Best Mexican — Akron's Beacon's Best",
+  'Voted Best Taco, Cleveland.com',
+  "Best Mexican, Akron's Beacon's Best",
   '$1 Off All Tacos Every Tuesday',
   'Best Chef Akron',
   'Tacos Chingones',
@@ -42,7 +42,7 @@ const signatures = [
   },
   {
     name: 'Loaded Funky Nachos',
-    desc: 'Fresh corn chips, queso, beans, poblano crema, avocado salsa verde and pico — pile on birria, chorizo or asada steak.',
+    desc: 'Fresh corn chips, queso, beans, poblano crema, avocado salsa verde and pico. Pile on birria, chorizo or asada steak.',
     img: '/images/loaded-nachos.webp',
   },
 ]
@@ -74,7 +74,7 @@ export default function Home() {
             </div>
             <div className="rise rise-5 mt-9 flex flex-wrap items-center gap-x-7 gap-y-3 text-label-lg uppercase tracking-[0.16em] text-cream/75">
               <span className="inline-flex items-center gap-2">
-                <Clock size={15} className="text-marigold" /> Mon–Sat · Lunch & Dinner
+                <Clock size={15} className="text-marigold" /> Mon-Sat · Lunch & Dinner
               </span>
               <span className="inline-flex items-center gap-2">
                 <Star size={15} className="fill-marigold text-marigold" /> {ratingSummary.value}★ on Google
@@ -166,7 +166,7 @@ export default function Home() {
             eyebrow="Crowd Favorites"
             title="A few funky standouts"
             accent="text-magenta-light"
-            intro="Seventeen funky tacos, big 14-inch burritos, quesadillas, loaded nachos and more — here's a taste."
+            intro="Seventeen funky tacos, big 14-inch burritos, quesadillas, loaded nachos and more. Here's a taste."
           />
           <div className="reveal-group mt-14 grid gap-7 md:grid-cols-3">
             {signatures.map((s) => (
@@ -203,7 +203,7 @@ export default function Home() {
             <div className="overflow-hidden rounded-xl border border-line-dark">
               <img
                 src="/images/taco-tuesday.webp"
-                alt="Taco Tuesday at The Funky Truckeria — $1 off all tacos every Tuesday"
+                alt="Taco Tuesday at The Funky Truckeria, $1 off all tacos every Tuesday"
                 loading="lazy"
                 className="w-full"
               />
@@ -216,7 +216,7 @@ export default function Home() {
               <span className="brick-rule mt-5 block w-[72px]" />
               <p className="mt-6 text-body-lg text-ink-soft">
                 <strong className="font-semibold text-ink">$1 off all tacos</strong>, every single Tuesday.
-                Same funky fusion flavors — Korean BBQ, Thai, Baja fish, birria and more — for a little
+                Same funky fusion flavors (Korean BBQ, Thai, Baja fish, birria and more) for a little
                 less. Fresh tortillas, bold sauces, street-style attitude. Always funky.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">
@@ -259,7 +259,7 @@ export default function Home() {
               <span className="brick-rule mt-5 block w-[72px]" />
               <p className="mt-6 max-w-xl text-body-lg text-cream-dim">
                 Before the brick-and-mortar, there were two food trucks slinging tacos across Northeast
-                Ohio — and they still roll. Book us for weddings, corporate events, festivals and private
+                Ohio, and they still roll. Book us for weddings, corporate events, festivals and private
                 parties, and we'll bring the whole funky operation to you.
               </p>
               <div className="mt-8">
@@ -353,7 +353,7 @@ export default function Home() {
             <div>
               <h2 className="font-display text-headline-md text-on-brick">Hungry yet?</h2>
               <p className="mt-2 max-w-xl text-body-md text-on-brick/85">
-                Order online for pickup, or give us a call — we'll have your funky tacos ready when you are.
+                Order online for pickup, or give us a call. We'll have your funky tacos ready when you are.
               </p>
             </div>
           </div>

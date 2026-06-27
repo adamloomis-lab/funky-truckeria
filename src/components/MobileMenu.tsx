@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'wouter'
 import { X, Phone, MapPin, Clock, ArrowRight, Facebook, Instagram, ShoppingBag } from 'lucide-react'
 import { company, hoursCompact } from '../data/site'
@@ -23,9 +24,13 @@ export default function MobileMenu({ open, onClose, links, activePath }: MobileM
         if (e.key === 'Escape') onClose()
       }
       window.addEventListener('keydown', onKey)
-      const id = requestAnimationFrame(() => setShown(true))
+      let inner = 0
+      const id = requestAnimationFrame(() => {
+        inner = requestAnimationFrame(() => setShown(true))
+      })
       return () => {
         cancelAnimationFrame(id)
+        cancelAnimationFrame(inner)
         window.removeEventListener('keydown', onKey)
         document.body.style.overflow = ''
       }
@@ -35,8 +40,15 @@ export default function MobileMenu({ open, onClose, links, activePath }: MobileM
   }, [open, onClose])
 
   if (!open) return null
+  // SSR guard — document only exists in the browser.
+  if (typeof document === 'undefined') return null
 
-  return (
+  // IMPORTANT: render at document.body via portal so the panel's `position:
+  // fixed` escapes the header's containing block. The header uses
+  // `backdrop-filter` (backdrop-blur) once scrolled, which makes it a
+  // containing block for fixed descendants — that's why the menu was
+  // clipping to the header strip before this portal was added.
+  return createPortal(
     <div className="fixed inset-0 z-[60] lg:hidden" role="dialog" aria-modal="true" aria-label="Menu">
       {/* Backdrop */}
       <button
@@ -82,9 +94,9 @@ export default function MobileMenu({ open, onClose, links, activePath }: MobileM
                   key={l.href}
                   href={l.href}
                   onClick={onClose}
-                  className={`group flex items-center justify-between border-b border-line py-4 font-display text-[26px] uppercase transition-all duration-500 hover:text-brick-light ${
+                  className={`group flex items-center justify-between border-b border-line py-4 font-display text-[26px] uppercase transition-transform duration-500 motion-reduce:transition-none hover:text-brick-light ${
                     active ? 'text-brick' : 'text-cream/90'
-                  } ${shown ? 'translate-x-0 opacity-100' : 'translate-x-6 opacity-0'}`}
+                  } ${shown ? 'translate-x-0' : 'translate-x-6'}`}
                   style={{ transitionDelay: `${120 + i * 70}ms` }}
                 >
                   {l.label}
@@ -158,6 +170,7 @@ export default function MobileMenu({ open, onClose, links, activePath }: MobileM
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }

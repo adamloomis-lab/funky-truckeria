@@ -1,5 +1,8 @@
 import { Phone, Clock, ArrowRight, Star, MapPin, Globe, Flame, Award, Truck } from 'lucide-react'
 import Button from '../components/Button'
+import OpenNow from '../components/OpenNow'
+import LiveReviewGrid from '../components/LiveReviewGrid'
+import TonightBand from '../components/TonightBand'
 import Logo from '../components/Logo'
 import SectionHeading from '../components/SectionHeading'
 import MatchDivider from '../components/MatchDivider'
@@ -9,7 +12,6 @@ import Marquee from '../components/Marquee'
 import {
   company,
   featurePillars,
-  reviews,
   ratings,
   ratingSummary,
   gallery,
@@ -64,7 +66,10 @@ export default function Home() {
             <h2 className="rise rise-3 mt-6 max-w-xl font-body text-body-lg font-normal normal-case tracking-normal text-cream/85">
               Tacos, burritos, nachos, and more, built fresh the second you order.
             </h2>
-            <div className="rise rise-4 mt-9 flex flex-col gap-4 sm:flex-row">
+            <div className="rise rise-4 mt-7">
+              <OpenNow />
+            </div>
+            <div className="rise rise-4 mt-5 flex flex-col gap-4 sm:flex-row">
               <Button href={company.orderOnline} external>
                 Order Online
               </Button>
@@ -91,6 +96,9 @@ export default function Home() {
       <section className="border-y-2 border-steel bg-marigold py-3.5 text-steel">
         <Marquee items={tickerItems} label="Awards and specials" />
       </section>
+
+      {/* ---------- TONIGHT AT THE TRUCKERIA (live contextual band) ---------- */}
+      <TonightBand />
 
       {/* ---------- MISSION ---------- */}
       <section className="relative overflow-hidden bg-paper py-24 md:py-28">
@@ -322,21 +330,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="reveal-group mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {reviews.map((r, i) => (
-              <figure key={i} className="rounded-lg border border-line bg-card p-7">
-                <div className="flex gap-0.5 text-marigold">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <Star key={j} size={15} className="fill-marigold text-marigold" />
-                  ))}
-                </div>
-                <blockquote className="mt-4 text-body-md text-ink-soft">&ldquo;{r.quote}&rdquo;</blockquote>
-                <figcaption className="mt-4 font-display text-sm uppercase tracking-[0.14em] text-brick-light">
-                  {r.source}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <LiveReviewGrid />
           <div className="mt-12 text-center">
             <Button href={company.social.facebook} variant="outline" external>
               See More on Facebook

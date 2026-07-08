@@ -1,0 +1,61 @@
+name: POS price sync
+
+# Mirrors live Heartland POS prices + item photos onto the website menu daily.
+# NOTE: this repo deploys via GitHub Actions (deploy.yml), and pushes made with
+# GITHUB_TOKEN don't trigger sibling workflows, so this workflow deploys itself
+# after committing a change (same build + Netlify secrets as deploy.yml).
+
+on:
+  schedule:
+    - cron: '47 11 * * *' # ~07:47 ET daily
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pos-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      - name: Sync prices + photos from POS
+        run: node scripts/pos-sync/sync.mjs
+
+      - name: Commit if changed
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain src/data/pos-prices.json src/data/pos-photos.json)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "POS Sync Bot"
+          git config user.email "actions@github.com"
+          git add src/data/pos-prices.json src/data/pos-photos.json
+          SUMMARY=$(git diff --cached --unified=0 -- src/data/pos-prices.json src/data/pos-photos.json \
+            | grep -E '^[+-]  ' | head -40)
+          printf 'chore(menu): sync prices/photos from POS\n\n%s\n' "$SUMMARY" | git commit -F -
+          git push
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Build & deploy (bot pushes don't trigger deploy.yml)
+        if: steps.commit.outputs.changed == 'true'
+        run: |
+          npm run build
+          npx --yes netlify-cli@22 deploy --prod --dir dist
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

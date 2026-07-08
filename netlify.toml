@@ -5,6 +5,16 @@
 [build.environment]
   NODE_VERSION = "20"
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Friendly path for the live Google reviews function.
+[[redirects]]
+  from = "/api/reviews"
+  to = "/.netlify/functions/reviews"
+  status = 200
+
 # Prerendered per-route HTML is served directly (Netlify serves existing files
 # before applying this fallback). The fallback only catches client-side routes
 # that have no prerendered file.

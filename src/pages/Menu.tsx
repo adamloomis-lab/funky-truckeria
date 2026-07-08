@@ -1,5 +1,6 @@
 import { Phone, Leaf, Flame } from 'lucide-react'
 import Button from '../components/Button'
+import TacoEstimator from '../components/TacoEstimator'
 import FactoryBackdrop from '../components/FactoryBackdrop'
 import SkullWatermark from '../components/SkullWatermark'
 import { company, menuGroups, type MenuGroup } from '../data/site'
@@ -43,16 +44,29 @@ function MenuGroupCard({ group, accent }: { readonly group: MenuGroup; readonly 
       <ul className="mt-4 divide-y divide-line/70">
         {group.items.map((it) => (
           <li key={it.name} className="py-3 first:pt-0">
-            <div className="flex items-baseline justify-between gap-3">
-              <span className="flex flex-wrap items-center gap-2 font-display text-[18px] uppercase tracking-[0.02em] text-ink">
-                {it.name}
-                {it.tag && <Tag tag={it.tag} />}
-              </span>
-              {it.price && (
-                <span className="shrink-0 font-display text-[18px] text-brick-light">{it.price}</span>
+            <div className="flex items-start gap-3">
+              {it.photo && (
+                <img
+                  src={it.photo}
+                  alt={it.name}
+                  loading="lazy"
+                  referrerPolicy="no-referrer"
+                  className="mt-0.5 h-14 w-14 shrink-0 rounded-md border border-line object-cover"
+                />
               )}
+              <div className="min-w-0 flex-1">
+                <div className="flex items-baseline justify-between gap-3">
+                  <span className="flex flex-wrap items-center gap-2 font-display text-[18px] uppercase tracking-[0.02em] text-ink">
+                    {it.name}
+                    {it.tag && <Tag tag={it.tag} />}
+                  </span>
+                  {it.price && (
+                    <span className="shrink-0 font-display text-[18px] text-brick-light">{it.price}</span>
+                  )}
+                </div>
+                {it.desc && <p className="mt-1 text-body-md text-ink-soft">{it.desc}</p>}
+              </div>
             </div>
-            {it.desc && <p className="mt-1 text-body-md text-ink-soft">{it.desc}</p>}
           </li>
         ))}
       </ul>
@@ -72,7 +86,7 @@ export default function Menu() {
             The Menu
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-body-lg text-cream-dim">
-            Seventeen funky tacos from $5, big 14&quot; burritos, quesadillas, loaded nachos and the famous
+            More than twenty funky tacos from $5, big 14&quot; burritos, quesadillas, loaded nachos and the famous
             salted turtle nacho sundae. Order online for pickup or call{' '}
             <a href={company.phoneHref} className="text-brick-light hover:underline">
               {company.phone}
@@ -94,6 +108,9 @@ export default function Menu() {
       <section className="relative overflow-hidden bg-paper py-20 md:py-24">
         <SkullWatermark />
         <div className="container-x relative z-10">
+          <div className="reveal mb-8">
+            <TacoEstimator />
+          </div>
           <div className="reveal-group columns-1 gap-7 md:columns-2 lg:columns-3 [&>*]:mb-7">
             {menuGroups.map((g, i) => (
               <MenuGroupCard key={g.title} group={g} accent={chipStyles[i % chipStyles.length]} />

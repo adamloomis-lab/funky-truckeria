@@ -17,6 +17,7 @@ import {
 import { company } from '../data/site'
 import { faqs } from '../lib/seo'
 import HoursList from '../components/HoursList'
+import OpenNow from '../components/OpenNow'
 import FactoryBackdrop from '../components/FactoryBackdrop'
 import {
   FloatField,
@@ -168,6 +169,7 @@ export default function Contact() {
                 <Clock size={20} className="text-brick" />
                 <h3 className="font-display text-headline-sm text-ink">Hours</h3>
               </div>
+              <div className="mt-3"><OpenNow tone="light" /></div>
               <HoursList className="mt-4 -mx-2" />
             </div>
           </div>

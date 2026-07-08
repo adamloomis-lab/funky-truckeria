@@ -1,6 +1,50 @@
 {
   "posType": "heartland-mobilebytes",
   "orderUrl": "https://thefunkytruckeria.hrpos.heartland.us/menu",
-  "sizeLabels": {},
-  "items": {}
+  "duoSizes": ["Single", "3 Pack of the Same Taco"],
+  "items": {
+    "3 Birria Quesa Tacos w/ Consomé": { "type": "single", "pos": "Birria Quesa Tacos w/Consommé" },
+    "3 Mexican Street Tacos": { "type": "single", "pos": "3 Tequila Lime Chicken Mexican Street Tacos" },
+    "3 El Gringo Gordo Tacos": { "type": "single", "pos": "3 Gordo Gringo's, Tequila Lime Chicken" },
+
+    "Crispy Fried Avocado": { "type": "duo", "pos": "Crispy Fried Avocado" },
+    "Buffalo Cauliflower": { "type": "duo", "pos": "Buffalo Cauliflower Taco" },
+    "Tequila Lime Chicken": { "type": "duo", "pos": "Tequila Lime Chicken Taco" },
+    "Jerk Chicken": { "type": "duo", "pos": "Jerk Chicken Taco" },
+    "Thai Chicken": { "type": "duo", "pos": "Thai Chicken Taco" },
+    "Honey Jalapeño Chicken": { "type": "duo", "pos": "Honey Jalapeno Chicken Taco" },
+    "Huli Huli Chicken": { "type": "duo", "pos": "Huli Huli Chicken Taco" },
+    "Korean BBQ Chicken": { "type": "duo", "pos": "Korean BBQ Chicken Taco" },
+    "Korean Hot Honey Fried Chicken": { "type": "duo", "pos": "Korean Hot Honey Fried Chicken Taco" },
+    "Fried Buffalo Chicken": { "type": "duo", "pos": "Fried Buffalo Chicken Taco" },
+    "Pollo Diablo": { "type": "duo", "pos": "Pollo Diablo Taco" },
+    "Carne Asada Steak": { "type": "duo", "pos": "Carne Asada Steak Taco" },
+    "Chimichurri Asada Steak": { "type": "duo", "pos": "Chimichurri Asada Steak Taco" },
+    "Korean BBQ Steak": { "type": "duo", "pos": "Korean BBQ Steak Taco" },
+    "Blackened Mahi Mahi Fish": { "type": "duo", "pos": "Blackened Mahi Mahi Fish Taco" },
+    "Island Fried Shrimp": { "type": "duo", "pos": "Island Fried Shrimp Taco" },
+    "Honey Jalapeño Grilled Shrimp": { "type": "duo", "pos": "Honey Jalapeno Grilled Shrimp" },
+    "Korean Hot Honey Fried Shrimp": { "type": "duo", "pos": "Korean Hot Honey Fried Shrimp Taco" },
+    "Al Pastor": { "type": "duo", "pos": "Al Pastor Taco" },
+    "Habanero Pork Loin": { "type": "duo", "pos": "Habanero Pork Loin Taco" },
+    "Chorizo & Goat Cheese": { "type": "duo", "pos": "Chorizo & Goat Cheese Taco" },
+    "Chicharron": { "type": "duo", "pos": "Chicharron Taco" },
+    "Korean BBQ Pork Belly": { "type": "duo", "pos": "Korean BBQ Pork Belly Taco" },
+
+    "Korean BBQ Bowl or Burrito": { "type": "range", "pos": "Korean BBQ Bowl or Burrito" },
+    "Thai Bowl or Burrito": { "type": "range", "pos": "Thai Bowl or Burrito" },
+    "Buffalo Bowl or Burrito": { "type": "range", "pos": "Buffalo Bowl or Burrito" },
+    "Jerk Bowl or Burrito": { "type": "range", "pos": "Jerk Bowl or Burrito" },
+    "Huli Huli Bowl or Burrito": { "type": "range", "pos": "Huli Huli Bowl or Burrito" },
+    "Big Birria Burrito": { "type": "single", "pos": "Big Birria Burrito" },
+    "6 Person Taco Dinner": { "type": "single", "pos": "6 Person Taco Dinner" },
+
+    "Funky Quesadilla": { "type": "single", "pos": "Tequila Lime Chicken Quesadilla" },
+    "Funky Nachos": { "type": "single", "pos": "Tequila Lime Chicken Nachos" },
+
+    "3 Pack": { "type": "sizePick", "pos": "Chorizo Funky Balls", "size": "3 Pack" },
+    "6 Pack": { "type": "sizePick", "pos": "Chorizo Funky Balls", "size": "6 Pack" },
+
+    "Kids Taco Meal": { "type": "single", "pos": "Kids Tequila Lime Chicken Taco Meal" }
+  }
 }

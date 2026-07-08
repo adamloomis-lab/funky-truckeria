@@ -13,6 +13,24 @@ import { company } from '../data/site'
 type Copy = { kicker: string; headline: string; body: string; cta: 'order' | 'menu' }
 
 function copyFor(s: Status, w: Weather | null): Copy {
+  // Taco Tuesday ($1 off all tacos, owner's standing special) beats everything
+  // while there's still a chance to order today.
+  if (s.dow === 2 && (s.kind === 'open' || s.kind === 'closing')) {
+    return {
+      kicker: 'Taco Tuesday',
+      headline: '$1 off ALL tacos today',
+      body: `Every taco, all day, one dollar off. Kitchen's open 'til ${s.closes}.`,
+      cta: 'order',
+    }
+  }
+  if (s.dow === 2 && s.kind === 'closed' && s.opensDay === null) {
+    return {
+      kicker: 'Taco Tuesday',
+      headline: `$1 off ALL tacos, doors open at ${s.opens}`,
+      body: 'Every taco, all day, one dollar off. See you soon.',
+      cta: 'menu',
+    }
+  }
   // Cozy weather while the kitchen's open beats every other message.
   if (w && isCozyWeather(w) && (s.kind === 'open' || s.kind === 'closing')) {
     return {

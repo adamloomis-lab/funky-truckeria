@@ -37,7 +37,7 @@ export const company = {
     'https://www.google.com/maps?q=3200+Greenwich+Rd+Norton+OH+44203&output=embed',
   // Google Places id, powers the live reviews function.
   placeId: 'ChIJGYsWY67TMIgRCu6MiC7TcWw',
-  orderOnline: 'https://thefunkytruckeria.hrpos.heartland.us/menu',
+  orderOnline: 'https://order.spoton.com/BL-771B-ECB0-23DC',
   uberEats: 'https://www.ubereats.com/store/the-funky-truckeria-norton-oh/Mycr6kZbXM2J2chFzBKgVQ',
   social: {
     facebook: 'https://www.facebook.com/funkytruckeria',

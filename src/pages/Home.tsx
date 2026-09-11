@@ -27,7 +27,7 @@ const tickerItems = [
   '$1 Off All Tacos Every Tuesday',
   'Best Chef Akron',
   'Tacos Chingones',
-  'Korean BBQ · Thai · Huli Huli · Baja',
+  'Korean BBQ · Thai · Huli Huli · Fish Tacos',
   'Celebrating 10 Years',
 ]
 
@@ -38,8 +38,8 @@ const signatures = [
     img: '/images/korean-bbq-taco.webp',
   },
   {
-    name: 'Baja Fish & Bang-Bang Shrimp',
-    desc: 'Crispy seasonal fish or fried shrimp, feathered cabbage, poblano crema, avocado and pico. West-coast street style, Norton-made.',
+    name: 'Fish Tacos',
+    desc: "Blackened or crispy, whatever's running that day, on feathered cabbage with poblano crema, avocado and pico. West-coast street style, Norton-made.",
     img: '/images/fish-tacos.webp',
   },
   {
@@ -113,7 +113,7 @@ export default function Home() {
               <span className="brick-rule mt-5 block w-[72px]" />
               <p className="mt-6 max-w-xl text-body-lg text-ink-soft">
                 Two award-winning food-truck chefs, one tiny taqueria tucked into Norton Plaza, and a menu
-                that runs from Korean BBQ and Thai peanut to Caribbean jerk, Huli Huli and Baja fish. These
+                that runs from Korean BBQ and Thai peanut to Caribbean jerk, Huli Huli and fish tacos. These
                 are definitely not Taco Bell tacos.
               </p>
               <p className="mt-4 max-w-xl text-body-lg text-ink-soft">
@@ -224,7 +224,7 @@ export default function Home() {
               <span className="brick-rule mt-5 block w-[72px]" />
               <p className="mt-6 text-body-lg text-ink-soft">
                 <strong className="font-semibold text-ink">$1 off all tacos</strong>, every single Tuesday.
-                Same funky fusion flavors (Korean BBQ, Thai, Baja fish, birria and more) for a little
+                Same funky fusion flavors (Korean BBQ, Thai, fish tacos, birria and more) for a little
                 less. Fresh tortillas, bold sauces, street-style attitude. Always funky.
               </p>
               <div className="mt-8 flex flex-wrap gap-4">

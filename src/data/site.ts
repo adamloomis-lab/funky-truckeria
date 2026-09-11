@@ -17,7 +17,7 @@ export const company = {
   tagline: 'Tacos Chingones',
   // Longer descriptor used in hero / meta.
   shortBlurb:
-    'Award-winning artisanal tacos with worldly influences and a Southern California flair: Korean BBQ, Thai, Huli Huli, Baja fish and more, built fresh to order at a hidden-gem taqueria in Norton, Ohio.',
+    'Award-winning artisanal tacos with worldly influences and a Southern California flair: Korean BBQ, Thai, Huli Huli, fish tacos and more, built fresh to order at a hidden-gem taqueria in Norton, Ohio.',
   phone: '(330) 208-0560',
   phoneHref: 'tel:+13302080560',
   phone2: '(330) 400-4397',
@@ -85,7 +85,7 @@ export const featurePillars = [
   {
     title: 'Worldly Flavors',
     blurb:
-      'Korean BBQ, Thai peanut, Caribbean jerk, Huli Huli, Baja fish. West Coast street tacos with influences from all over the map.',
+      'Korean BBQ, Thai peanut, Caribbean jerk, Huli Huli, fish tacos. West Coast street tacos with influences from all over the map.',
   },
   {
     title: 'Built Fresh to Order',
@@ -337,7 +337,7 @@ export const gallery = [
   { src: '/images/loaded-nachos.webp', alt: 'Loaded nachos with chicken, guacamole, crema and pico de gallo' },
   { src: '/images/street-corn-elote.webp', alt: 'Mexican street corn (elote) on a stick with cotija, crema and chili' },
   { src: '/images/korean-bbq-taco.webp', alt: 'Korean BBQ taco with crispy wonton strings and scallion' },
-  { src: '/images/fish-tacos.webp', alt: 'Crispy Baja fish tacos with lime wedges' },
+  { src: '/images/fish-tacos.webp', alt: 'Fish tacos with lime wedges' },
   { src: '/images/bang-bang-shrimp-taco.webp', alt: 'Fried shrimp taco with sriracha aioli and sesame' },
   { src: '/images/chicken-burrito.webp', alt: 'A big 14-inch grilled chicken Funky burrito sliced open' },
   { src: '/images/churros.webp', alt: 'Cinnamon-sugar churros with caramel dipping sauce' },

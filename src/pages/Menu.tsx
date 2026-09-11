@@ -1,6 +1,5 @@
 import { Phone, Leaf, Flame } from 'lucide-react'
 import Button from '../components/Button'
-import TacoEstimator from '../components/TacoEstimator'
 import FactoryBackdrop from '../components/FactoryBackdrop'
 import SkullWatermark from '../components/SkullWatermark'
 import { company, menuGroups, type MenuGroup } from '../data/site'
@@ -108,9 +107,6 @@ export default function Menu() {
       <section className="relative overflow-hidden bg-paper py-20 md:py-24">
         <SkullWatermark />
         <div className="container-x relative z-10">
-          <div className="reveal mb-8">
-            <TacoEstimator />
-          </div>
           <div className="reveal-group columns-1 gap-7 md:columns-2 lg:columns-3 [&>*]:mb-7">
             {menuGroups.map((g, i) => (
               <MenuGroupCard key={g.title} group={g} accent={chipStyles[i % chipStyles.length]} />

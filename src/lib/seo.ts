@@ -207,7 +207,7 @@ export function getPageMeta(rawPath: string): PageMeta {
       return {
         title: 'Menu | The Funky Truckeria, Tacos, Burritos & More in Norton, OH',
         description:
-          'Funky tacos from $5: Korean BBQ, Thai, Huli Huli, Baja fish, birria and more. Plus big 14" burritos, quesadillas, loaded nachos, chorizo funky balls and the salted turtle nacho sundae.',
+          'Funky tacos from $5: Korean BBQ, Thai, Huli Huli, fish tacos, birria and more. Plus big 14" burritos, quesadillas, loaded nachos, chorizo funky balls and the salted turtle nacho sundae.',
         canonical: pageUrl('/menu'),
         ogImage: abs('/images/og-menu.jpg'),
         jsonLd: [

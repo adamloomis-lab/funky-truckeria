@@ -9,6 +9,7 @@ import MatchDivider from '../components/MatchDivider'
 import SkullWatermark from '../components/SkullWatermark'
 import HeroCarousel from '../components/HeroCarousel'
 import Marquee from '../components/Marquee'
+import posPhotosRaw from '../data/pos-photos.json'
 import {
   company,
   featurePillars,
@@ -16,6 +17,10 @@ import {
   ratingSummary,
   gallery,
 } from '../data/site'
+
+// Real, POS-sourced photos (same nightly-synced source /menu uses) for the two
+// signature cards whose old static stock photos didn't actually match the dish.
+const posPhotos = posPhotosRaw as Record<string, string>
 
 // Icons paired to featurePillars (Worldly Flavors / Built Fresh / Award-Winning).
 const pillarIcons = [Globe, Flame, Award]
@@ -35,12 +40,12 @@ const signatures = [
   {
     name: 'Korean BBQ Steak',
     desc: 'Kimchi slaw, BBQ Angus steak, Asian sauce, sesame and cilantro on a warm flour tortilla. One of the worldly tacos that put us on the map.',
-    img: '/images/korean-bbq-taco.webp',
+    img: posPhotos['Korean BBQ Steak'] ?? '/images/korean-bbq-taco.webp',
   },
   {
     name: 'Fish Tacos',
     desc: "Blackened or crispy, whatever's running that day, on feathered cabbage with poblano crema, avocado and pico. West-coast street style, Norton-made.",
-    img: '/images/fish-tacos.webp',
+    img: posPhotos['Blackened Mahi Mahi Fish'] ?? '/images/fish-tacos.webp',
   },
   {
     name: 'Loaded Funky Nachos',
@@ -187,6 +192,7 @@ export default function Home() {
                     src={s.img}
                     alt={s.name}
                     loading="lazy"
+                    referrerPolicy="no-referrer"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>

@@ -135,7 +135,7 @@ export function menuSchema() {
 const FAQS = [
   {
     q: 'What are The Funky Truckeria’s hours?',
-    a: 'We’re open Monday through Thursday 11am-8pm, Friday and Saturday 11am-9pm, and closed Sunday.',
+    a: 'We’re open Monday through Saturday 11am-9pm, and closed Sunday.',
   },
   {
     q: 'Where is The Funky Truckeria located?',

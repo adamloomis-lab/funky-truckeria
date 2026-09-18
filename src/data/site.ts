@@ -54,24 +54,22 @@ export const company = {
 // ---------------------------------------------------------------------------
 export const hours = [
   { day: 'Sunday', short: 'Sun', dow: 0, time: 'Closed' },
-  { day: 'Monday', short: 'Mon', dow: 1, time: '11:00 am - 8:00 pm' },
-  { day: 'Tuesday', short: 'Tue', dow: 2, time: '11:00 am - 8:00 pm' },
-  { day: 'Wednesday', short: 'Wed', dow: 3, time: '11:00 am - 8:00 pm' },
-  { day: 'Thursday', short: 'Thu', dow: 4, time: '11:00 am - 8:00 pm' },
+  { day: 'Monday', short: 'Mon', dow: 1, time: '11:00 am - 9:00 pm' },
+  { day: 'Tuesday', short: 'Tue', dow: 2, time: '11:00 am - 9:00 pm' },
+  { day: 'Wednesday', short: 'Wed', dow: 3, time: '11:00 am - 9:00 pm' },
+  { day: 'Thursday', short: 'Thu', dow: 4, time: '11:00 am - 9:00 pm' },
   { day: 'Friday', short: 'Fri', dow: 5, time: '11:00 am - 9:00 pm' },
   { day: 'Saturday', short: 'Sat', dow: 6, time: '11:00 am - 9:00 pm' },
 ]
 
 export const hoursCompact = [
-  { day: 'Mon - Thu', time: '11a - 8p' },
-  { day: 'Fri - Sat', time: '11a - 9p' },
+  { day: 'Mon - Sat', time: '11a - 9p' },
   { day: 'Sunday', time: 'Closed' },
 ]
 
 // Schema.org openingHoursSpecification
 export const openingHours = [
-  { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday'], opens: '11:00', closes: '20:00' },
-  { days: ['Friday', 'Saturday'], opens: '11:00', closes: '21:00' },
+  { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '11:00', closes: '21:00' },
 ]
 
 // Awards & recognition (verbatim from the owner's reputation brief).

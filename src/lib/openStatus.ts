@@ -4,17 +4,25 @@
 
 import { hours } from '../data/site'
 
-// Structured open/close ranges (minutes since midnight, restaurant-local).
-// No Sunday entry = closed all day. dow matches Date.getDay() (0 = Sun).
 export const hoursTimezone = 'America/New_York'
-export const hoursRanges: Record<number, { open: number; close: number }> = {
-  1: { open: 11 * 60, close: 20 * 60 }, // Mon 11–8
-  2: { open: 11 * 60, close: 20 * 60 }, // Tue
-  3: { open: 11 * 60, close: 20 * 60 }, // Wed
-  4: { open: 11 * 60, close: 20 * 60 }, // Thu
-  5: { open: 11 * 60, close: 21 * 60 }, // Fri 11–9
-  6: { open: 11 * 60, close: 21 * 60 }, // Sat 11–9
+
+// Open/close ranges in minutes since midnight, restaurant-local, derived from
+// the posted hours so the live pill can never disagree with the hours table.
+// This used to be a hand-written copy and it silently went stale: the table
+// read 9pm while the hero still said 8pm. Anything that doesn't parse as
+// "h:mm am - h:mm pm" (such as "Closed") gets no entry, meaning closed all day.
+function parseClock(raw: string): number | null {
+  const m = /^(\d{1,2})(?::(\d{2}))?\s*(am|pm)$/i.exec(raw.trim())
+  if (!m) return null
+  return ((Number(m[1]) % 12) + (/pm/i.test(m[3]) ? 12 : 0)) * 60 + Number(m[2] ?? 0)
 }
+
+export const hoursRanges: Record<number, { open: number; close: number }> = Object.fromEntries(
+  hours.flatMap((h) => {
+    const [open, close] = h.time.split(/\s*-\s*/).map(parseClock)
+    return open != null && close != null ? [[h.dow, { open, close }]] : []
+  }),
+)
 
 export type Status =
   | { kind: 'open'; closes: string; dow: number }
